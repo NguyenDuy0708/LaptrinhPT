@@ -59,10 +59,7 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
                 threads[i].Start();
             }
 
-            foreach (Thread t in threads)
-            {
-                t.Join();
-            }
+            foreach (Thread t in threads) {t.Join();}
 
         }
     }
