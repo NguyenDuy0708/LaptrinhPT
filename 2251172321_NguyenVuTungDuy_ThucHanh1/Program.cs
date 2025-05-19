@@ -9,9 +9,10 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
 {
     internal class Program
     {
-        static int N = 1000; 
-        static int K = 3;
-        static int[] A = new int[N];
+        static int N ; 
+        static int K ;
+        static int X;
+        static int[] A;
         static object lockObj = new object();
 
         static List<(int ThreadId, int Value, DateTime Time)> results = new List<(int, int, DateTime)>();
@@ -32,7 +33,6 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
                     {
                         results.Add((threadId, A[i], now));
                     }
-
                     Console.WriteLine($"T{threadId}: {A[i]} : {now:HH:mm:ss}");
                 }
                 Thread.Sleep(1);
@@ -41,26 +41,37 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
 
         static void Main(string[] args)
         {
+            do
+            {
+                Console.Write("Nhap N: ");
+            }while (!int.TryParse(Console.ReadLine(), out N) || N <= 100);
+            do
+            {
+                Console.Write("Nhap K: ");
+            }while (!int.TryParse(Console.ReadLine(), out K) || K <= 1 || K>N);
+            do
+            {
+                Console.Write("Nhap X: ");
+            }while (!int.TryParse(Console.ReadLine(), out X) || X <= 0);
+            A = new int[N];
             Random rnd = new Random();
             for (int i = 0; i < N; i++)
             {
                 A[i] = rnd.Next(1, 10000); 
             }
-
+            A[N-1] = X;
             Thread[] threads = new Thread[K];
             int chunkSize = N / K;
 
             for (int i = 0; i < K; i++)
             {
                 int start = i * chunkSize;
-                int end = (i == K - 1) ? N : (i + 1) * chunkSize;
+                int end = (i == K - 1) ? N : start + chunkSize;
                 int threadId = i + 1;
                 threads[i] = new Thread(() => TimSCP(threadId, start, end));
                 threads[i].Start();
             }
-
             foreach (Thread t in threads) {t.Join();}
-
         }
     }
 }
