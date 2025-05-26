@@ -11,6 +11,7 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
     {
         static int N ; 
         static int K ;
+        static int X;
         static int[] A;
         static object lockObj = new object();
 
@@ -42,19 +43,31 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
             do
             {
                 Console.Write("Nhap N: ");
-            }while (!int.TryParse(Console.ReadLine(), out N) || N <= 100);
+            }while (!int.TryParse(Console.ReadLine(), out N) );
             do
             {
                 Console.Write("Nhap K: ");
             }while (!int.TryParse(Console.ReadLine(), out K) || K <= 1 || K>N);
-     
+            do
+            {
+                Console.Write("Nhap X: ");
+            } while (!int.TryParse(Console.ReadLine(), out X));
             A = new int[N];
             Random rnd = new Random();
 
             for (int i = 0; i < N; i++)
             {
-                A[i] = rnd.Next(1, 10000); 
+                A[i] = rnd.Next(1, 100); 
             }
+
+            A[N - 1] = X;
+
+            Console.WriteLine("Mang A:");
+            for (int i = 0; i < N; i++)
+            {
+                Console.Write($"{A[i]} ");
+            }
+            Console.WriteLine(); 
 
             Thread[] threads = new Thread[K];
 
