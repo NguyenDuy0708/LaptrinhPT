@@ -11,7 +11,6 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
     {
         static int N ; 
         static int K ;
-        static int X;
         static int[] A;
         static object lockObj = new object();
 
@@ -38,7 +37,6 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
                 Thread.Sleep(1);
             }
         }
-
         static void Main(string[] args)
         {
             do
@@ -49,18 +47,17 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
             {
                 Console.Write("Nhap K: ");
             }while (!int.TryParse(Console.ReadLine(), out K) || K <= 1 || K>N);
-            do
-            {
-                Console.Write("Nhap X: ");
-            }while (!int.TryParse(Console.ReadLine(), out X) || X <= 0);
+     
             A = new int[N];
             Random rnd = new Random();
+
             for (int i = 0; i < N; i++)
             {
                 A[i] = rnd.Next(1, 10000); 
             }
-            A[N-1] = X;
+
             Thread[] threads = new Thread[K];
+
             int chunkSize = N / K;
 
             for (int i = 0; i < K; i++)
