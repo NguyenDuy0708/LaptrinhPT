@@ -82,6 +82,8 @@ namespace _2251172321_NguyenVuTungDuy_ThucHanh1
                 threads[i].Start();
             }
             foreach (Thread t in threads) {t.Join();}
+
+            Console.WriteLine($"Tong so chinh phuong trong mang A: {results.Count}");
         }
     }
 }
